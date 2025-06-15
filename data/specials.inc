@@ -352,20 +352,20 @@ gSpecials::
 	def_special TryBerryBlenderLinkup
 	def_special GetLinkPartnerNames
 	def_special SpawnLinkPartnerObjectEvent
-@	def_special TurnOffTVScreen
-@	def_special DoTVShow
-@	def_special DoPokeNews
-@	def_special GetRandomActiveShowIdx
-@	def_special GetSelectedTVShow
-@	def_special InterviewBefore
-@	def_special InterviewAfter
-@	def_special IsLeadMonNicknamedOrNotEnglish
-@	def_special SetContestCategoryStringVarForInterview
-@	def_special GetNextActiveShowIfMassOutbreak
-@	def_special IsTVShowAlreadyInQueue
-@	def_special CheckForPlayersHouseNews
-@	def_special GetMomOrDadStringForTVMessage
-@	def_special ResetTVShowState
+	def_special TurnOffTVScreen
+	def_special DoTVShow
+	def_special DoPokeNews
+	def_special GetRandomActiveShowIdx
+	def_special GetSelectedTVShow
+	def_special InterviewBefore
+	def_special InterviewAfter
+	def_special IsLeadMonNicknamedOrNotEnglish
+	def_special SetContestCategoryStringVarForInterview
+	def_special GetNextActiveShowIfMassOutbreak
+	def_special IsTVShowAlreadyInQueue
+	def_special CheckForPlayersHouseNews
+	def_special GetMomOrDadStringForTVMessage
+	def_special ResetTVShowState
 @	def_special GetContestWinnerId
 @	def_special GetContestPlayerId
 @	def_special GetNpcContestantLocalId
