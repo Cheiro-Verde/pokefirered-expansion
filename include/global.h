@@ -442,7 +442,7 @@ struct SecretBaseParty
 };
 
 // Leftover from R/S, still referenced in the unused function CreateSecretBaseEnemyParty
-struct SecretBaseRecord
+struct SecretBase
 {
     /*0x1A9C*/ u8 secretBaseId;
     /*0x1A9D*/ u8 toRegister:4;

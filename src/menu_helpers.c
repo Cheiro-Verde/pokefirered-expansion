@@ -121,6 +121,12 @@ static void Task_CallYesOrNoCallback(u8 taskId)
     }
 }
 
+void DoYesNoFuncWithChoice(u8 taskId, const struct YesNoFuncTable *data)
+{
+    sYesNo = data;
+    gTasks[taskId].func = Task_CallYesOrNoCallback;
+}
+
 void CreateYesNoMenuWithCallbacks(u8 taskId, const struct WindowTemplate *template, u8 fontId, u8 left, u8 top, u16 tileStart, u8 palette, const struct YesNoFuncTable *yesNo)
 {
     CreateYesNoMenuAtPos(template, fontId, left, top, tileStart, palette, 0);

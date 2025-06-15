@@ -137,7 +137,7 @@ static void DisplayItemMessageInCurrentContext(u8 taskId, bool8 inField, u8 font
     if (inField == FALSE)
         DisplayItemMessage(taskId, fontId, gStringVar4, CloseItemMessage);
     else
-        DisplayItemMessageOnField(taskId, fontId, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        DisplayItemMessageOnFieldWithFont(taskId, fontId, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
 }
 
 static void PrintNotTheTimeToUseThat(u8 taskId, bool8 inField)
@@ -223,7 +223,7 @@ void ItemUseOutOfBattle_ExpShare(u8 taskId)
     {
         PlaySE(SE_PC_OFF);
         if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ExpShareOff, Task_ItemUse_CloseMessageBoxAndReturnToField);
+            DisplayItemMessageOnField(taskId, gText_ExpShareOff, Task_ItemUse_CloseMessageBoxAndReturnToField);
         else
             DisplayItemMessage(taskId, FONT_NORMAL, gText_ExpShareOff, CloseItemMessage);
     }
@@ -231,7 +231,7 @@ void ItemUseOutOfBattle_ExpShare(u8 taskId)
     {
         PlaySE(SE_EXP_MAX);
         if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ExpShareOn, Task_ItemUse_CloseMessageBoxAndReturnToField);
+            DisplayItemMessageOnField(taskId, gText_ExpShareOn, Task_ItemUse_CloseMessageBoxAndReturnToField);
         else
             DisplayItemMessage(taskId, FONT_NORMAL, gText_ExpShareOn, CloseItemMessage);
     }
@@ -415,7 +415,7 @@ void ItemUseOutOfBattle_CoinCase(u8 taskId)
     if (gTasks[taskId].tIsFieldUse == FALSE)
         DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
     else
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        DisplayItemMessageOnField(taskId, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
 }
 
 void ItemUseOutOfBattle_DynamaxCandy(u8 taskId)
@@ -432,7 +432,7 @@ void ItemUseOutOfBattle_PowderJar(u8 taskId)
     if (gTasks[taskId].tIsFieldUse == FALSE)
         DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
     else
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        DisplayItemMessageOnField(taskId, gStringVar4, Task_ItemUse_CloseMessageBoxAndReturnToField);
 }
 
 void ItemUseOutOfBattle_WailmerPail(u8 taskId)
@@ -499,14 +499,14 @@ void ItemUseOutOfBattle_PokeFlute(u8 taskId)
         if (gTasks[taskId].tIsFieldUse == FALSE)
             DisplayItemMessage(taskId, FONT_NORMAL, gText_PlayedPokeFlute, Task_PlayPokeFlute);
         else
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_PlayedPokeFlute, Task_PlayPokeFlute);
+            DisplayItemMessageOnField(taskId, gText_PlayedPokeFlute, Task_PlayPokeFlute);
     }
     else
     {
         if (gTasks[taskId].tIsFieldUse == FALSE)
             DisplayItemMessage(taskId, FONT_NORMAL, gText_PlayedPokeFluteCatchy, CloseItemMessage);
         else
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_PlayedPokeFluteCatchy, Task_ItemUse_CloseMessageBoxAndReturnToField);
+            DisplayItemMessageOnField(taskId, gText_PlayedPokeFluteCatchy, Task_ItemUse_CloseMessageBoxAndReturnToField);
     }
 }
 
@@ -523,7 +523,7 @@ static void Task_DisplayPokeFluteMessage(u8 taskId)
         if (gTasks[taskId].tIsFieldUse == FALSE)
             DisplayItemMessage(taskId, FONT_NORMAL, gText_PokeFluteAwakenedMon, CloseItemMessage);
         else
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_PokeFluteAwakenedMon, Task_ItemUse_CloseMessageBoxAndReturnToField);
+            DisplayItemMessageOnField(taskId, gText_PokeFluteAwakenedMon, Task_ItemUse_CloseMessageBoxAndReturnToField);
     }
 }
 
@@ -854,7 +854,7 @@ static void ItemUseOnFieldCB_EscapeRope(u8 taskId)
     CopyItemName(gSpecialVar_ItemId, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gText_PlayerUsedVar2);
     gTasks[taskId].data[0] = 0;
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gStringVar4, Task_UseDigEscapeRopeOnField);
+    DisplayItemMessageOnField(taskId, gStringVar4, Task_UseDigEscapeRopeOnField);
 }
 
 void Task_UseDigEscapeRopeOnField(u8 taskId)
@@ -1159,7 +1159,7 @@ static void ItemUseOnFieldCB_Honey(u8 taskId)
     CopyItemName(gSpecialVar_ItemId, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gText_PlayerUsedVar2);
     gTasks[taskId].data[0] = 0;
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gStringVar4, Task_UseHoneyOnField);
+    DisplayItemMessageOnField(taskId, gStringVar4, Task_UseHoneyOnField);
 }
 
 void ItemUseOutOfBattle_Honey(u8 taskId)

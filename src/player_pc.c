@@ -154,7 +154,7 @@ void BedroomPC(void)
     sItemOrder = sItemOrder_BedroomPC;
     sTopMenuItemCount = 3;
     taskId = CreateTask(TaskDummy, 0);
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
+    DisplayItemMessageOnField(taskId, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
 }
 
 void PlayerPC(void)
@@ -166,7 +166,7 @@ void PlayerPC(void)
     sItemOrder = sItemOrder_PlayerPC;
     sTopMenuItemCount = 3;
     taskId = CreateTask(TaskDummy, 0);
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
+    DisplayItemMessageOnField(taskId, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
 }
 
 static void Task_DrawPlayerPcTopMenu(u8 taskId)
@@ -212,7 +212,7 @@ static void Task_TopMenuHandleInput(u8 taskId)
 static void Task_ReturnToTopMenu(u8 taskId)
 {
     RestoreHelpContext();
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
+    DisplayItemMessageOnField(taskId, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
 }
 
 static void Task_PlayerPcItemStorage(u8 taskId)
@@ -226,7 +226,7 @@ static void Task_PlayerPcMailbox(u8 taskId)
     gPlayerPcMenuManager.count = CountPCMail();
     if (gPlayerPcMenuManager.count == 0)
     {
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_TheresNoMailHere, Task_ReturnToTopMenu);
+        DisplayItemMessageOnField(taskId, gText_TheresNoMailHere, Task_ReturnToTopMenu);
     }
     else
     {
@@ -246,7 +246,7 @@ static void Task_PlayerPcMailbox(u8 taskId)
         }
         else
         {
-            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_TheresNoMailHere, Task_ReturnToTopMenu);
+            DisplayItemMessageOnField(taskId, gText_TheresNoMailHere, Task_ReturnToTopMenu);
         }
     }
 }
@@ -361,7 +361,7 @@ static void Task_PlayerPcWithdrawItem(u8 taskId)
         ClearStdWindowAndFrameToTransparent(tWindowId, FALSE);
         ClearWindowTilemap(tWindowId);
         RemoveWindow(tWindowId);
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ThereAreNoItems, Task_PlayerPcItemStorage);
+        DisplayItemMessageOnField(taskId, gText_ThereAreNoItems, Task_PlayerPcItemStorage);
     }
 }
 
@@ -508,7 +508,7 @@ static void Task_PrintWhatToDoWithSelectedMail(u8 taskId)
         ConvertInternationalString(gStringVar1, LANGUAGE_JAPANESE);
     }
     StringExpandPlaceholders(gStringVar4, gText_WhatWouldYouLikeToDoWithPlayersMail);
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gStringVar4, Task_DrawMailSubmenu);
+    DisplayItemMessageOnField(taskId, gStringVar4, Task_DrawMailSubmenu);
 }
 
 static void Task_DestroyMailboxPcViewAndCancel(u8 taskId)
@@ -596,7 +596,7 @@ static void CB2_SetCbToReturnToMailbox(void)
 
 static void Task_PlayerPcMoveMailToBag(u8 taskId)
 {
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_MessageWillBeLost, Task_DrawYesNoMenuToConfirmMoveToBag);
+    DisplayItemMessageOnField(taskId, gText_MessageWillBeLost, Task_DrawYesNoMenuToConfirmMoveToBag);
 }
 
 static void Task_DrawYesNoMenuToConfirmMoveToBag(u8 taskId)
@@ -628,11 +628,11 @@ static void Task_TryPutMailInBag_DestroyMsgIfSuccessful(u8 taskId)
     struct Mail * mail = &SELECTED_MAIL;
     if (!AddBagItem(mail->itemId, 1))
     {
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_BagIsFull, Task_PlayerPcExitMailSubmenu);
+        DisplayItemMessageOnField(taskId, gText_BagIsFull, Task_PlayerPcExitMailSubmenu);
     }
     else
     {
-        DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_MailReturnedToBagMessageErased, Task_PlayerPcExitMailSubmenu);
+        DisplayItemMessageOnField(taskId, gText_MailReturnedToBagMessageErased, Task_PlayerPcExitMailSubmenu);
         ClearMailStruct(mail);
         PCMailCompaction();
         gPlayerPcMenuManager.count--;
@@ -711,7 +711,7 @@ void Mailbox_ReturnToMailListAfterDeposit(void)
 
 static void Task_Error_NoPokemon(u8 taskId)
 {
-    DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_NoPokemon, Task_PlayerPcExitMailSubmenu);
+    DisplayItemMessageOnField(taskId, gText_NoPokemon, Task_PlayerPcExitMailSubmenu);
 }
 
 static void Task_RedrawPlayerPcMailboxAndSetUpInputHandler(u8 taskId)

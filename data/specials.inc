@@ -325,11 +325,11 @@ gSpecials::
 	def_special InitElevatorFloorSelectMenuPos
 	def_special UpdateLoreleiDollCollection
 @ emerald-only
-@	def_special SetPlayerSecretBase
-@	def_special CheckPlayerHasSecretBase
-@	def_special EnterSecretBase
-@	def_special ClearAndLeaveSecretBase
-@	def_special MoveOutOfSecretBase
+	def_special SetPlayerSecretBase
+	def_special CheckPlayerHasSecretBase
+	def_special EnterSecretBase
+	def_special ClearAndLeaveSecretBase
+	def_special MoveOutOfSecretBase
 @	def_special IsCurSecretBaseOwnedByAnotherPlayer
 @	def_special GetCurSecretBaseRegistrationValidity
 @	def_special ToggleCurSecretBaseRegistry

@@ -473,7 +473,7 @@ static void Task_ReturnToShopMenu(u8 taskId)
     if (IsWeatherNotFadingIn() != TRUE)
         return;
 
-    DisplayItemMessageOnField(taskId, GetMartFontId(), gText_AnythingElseICanHelp, ShowShopMenuAfterExitingBuyOrSellMenu);
+    DisplayItemMessageOnFieldWithFont(taskId, GetMartFontId(), gText_AnythingElseICanHelp, ShowShopMenuAfterExitingBuyOrSellMenu);
 }
 
 static void ShowShopMenuAfterExitingBuyOrSellMenu(u8 taskId)

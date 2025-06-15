@@ -165,6 +165,7 @@ struct BgEvent
     union {
         const u8 *script;
         u32 hiddenItem; // Contains all the hidden item data. See GET_HIDDEN_ITEM_* defines further up
+        u32 secretBaseId;
     } bgUnion;
 };
 

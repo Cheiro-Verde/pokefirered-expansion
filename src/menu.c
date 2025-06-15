@@ -383,7 +383,12 @@ void Menu_LoadStdPalAt(u16 offset)
     LoadPalette(gStandardMenuPalette, offset, PLTT_SIZEOF(10));
 }
 
-void DisplayItemMessageOnField(u8 taskId, u8 fontId, const u8 *string, TaskFunc callback)
+void DisplayItemMessageOnField(u8 taskId, const u8 *string, TaskFunc callback)
+{
+    DisplayItemMessageOnFieldWithFont(taskId, FONT_NORMAL, string, callback);
+}
+
+void DisplayItemMessageOnFieldWithFont(u8 taskId, u8 fontId, const u8 *string, TaskFunc callback)
 {
     LoadMessageBoxAndBorderGfx();
     DisplayMessageAndContinueTask(taskId, 0, DLG_WINDOW_BASE_TILE_NUM, DLG_WINDOW_PALETTE_NUM, fontId, GetPlayerTextSpeedDelay(), string, callback);
