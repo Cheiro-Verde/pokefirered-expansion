@@ -120,7 +120,6 @@ s8 GetSetPokedexFlag(u16 nationalNum, u8 caseId);
 u16 GetKantoPokedexCount(u8);
 bool16 HasAllHoennMons(void);
 bool16 HasAllKantoMons(void);
-bool16 HasAllMons(void);
 u8* ConvertMonHeightToString(u32 height);
 u8* ConvertMonWeightToString(u32 weight);
 u8 DexScreen_RegisterMonToPokedex(u16 species);

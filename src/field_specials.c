@@ -71,21 +71,21 @@ static void Task_AnimateElevatorWindowView(u8 taskId);
 static void Task_CreateScriptListMenu(u8 taskId);
 static void CreateScriptListMenu(void);
 static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListMenu * used);
-static void Task_ListMenuHandleInput(u8 taskId);
+static void ScrollableMultichoice_ProcessInput(u8 taskId);
 static void Task_DestroyListMenu(u8 taskId);
-static void Task_SuspendListMenu(u8 taskId);
-static void Task_RedrawScrollArrowsAndWaitInput(u8 taskId);
-static void Task_CreateMenuRemoveScrollIndicatorArrowPair(u8 taskId);
+static void Task_ScrollableMultichoice_WaitReturnToList(u8 taskId);
+static void Task_ScrollableMultichoice_ReturnToList(u8 taskId);
+static void ScrollableMultichoice_UpdateScrollArrows(u8 taskId);
 static void Task_ListMenuRemoveScrollIndicatorArrowPair(u8 taskId);
-static u16 GetStarterSpeciesById(u16 starterIdx);
+static u16 GetStarterPokemon(u16 starterIdx);
 static void ChangeBoxPokemonNickname_CB(void);
 static void ChangePokemonNickname_CB(void);
 static void Task_RunPokemonLeagueLightingEffect(u8 taskId);
 static void Task_CancelPokemonLeagueLightingEffect(u8 taskId);
-static void Task_DoDeoxysTriangleInteraction(u8 taskId);
+static void Task_DeoxysRockInteraction(u8 taskId);
 static void MoveDeoxysObject(u8 num);
 static void Task_WaitDeoxysFieldEffect(u8 taskId);
-static void Task_WingFlapSound(u8 taskId);
+static void Task_LoopWingFlapSE(u8 taskId);
 
 static u8 *const sStringVarPtrs[] = {
     gStringVar1,
@@ -466,7 +466,7 @@ bool8 AreLeadMonEVsMaxedOut(void)
 
 bool8 IsStarterFirstStageInParty(void)
 {
-    u16 species = GetStarterSpeciesById(VarGet(VAR_STARTER_MON));
+    u16 species = GetStarterPokemon(VarGet(VAR_STARTER_MON));
     u8 partyCount = CalculatePlayerPartyCount();
     u8 i;
     for (i = 0; i < partyCount; i++)
@@ -1203,7 +1203,7 @@ static void Task_AnimateElevatorWindowView(u8 taskId)
     data[1]++;
 }
 
-void ListMenu(void)
+void ShowScrollableMultichoice(void)
 {
     u8 taskId;
     struct Task *task;
@@ -1403,11 +1403,11 @@ static void Task_CreateScriptListMenu(u8 taskId)
     gScrollableMultichoice_ListMenuTemplate.totalItems = task->data[1];
     gScrollableMultichoice_ListMenuTemplate.maxShowed = task->data[0];
     gScrollableMultichoice_ListMenuTemplate.windowId = task->data[13];
-    Task_CreateMenuRemoveScrollIndicatorArrowPair(taskId);
+    ScrollableMultichoice_UpdateScrollArrows(taskId);
     task->data[14] = ListMenuInit(&gScrollableMultichoice_ListMenuTemplate, task->data[7], task->data[8]);
     PutWindowTilemap(task->data[13]);
     CopyWindowToVram(task->data[13], COPYWIN_FULL);
-    gTasks[taskId].func = Task_ListMenuHandleInput;
+    gTasks[taskId].func = ScrollableMultichoice_ProcessInput;
 }
 
 static void CreateScriptListMenu(void)
@@ -1437,7 +1437,7 @@ static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListM
     u8 taskId;
     struct Task *task;
     PlaySE(SE_SELECT);
-    taskId = FindTaskIdByFunc(Task_ListMenuHandleInput);
+    taskId = FindTaskIdByFunc(ScrollableMultichoice_ProcessInput);
     if (taskId != 0xFF)
     {
         task = &gTasks[taskId];
@@ -1446,20 +1446,17 @@ static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListM
     }
 }
 
-static void Task_ListMenuHandleInput(u8 taskId)
+static void ScrollableMultichoice_ProcessInput(u8 taskId)
 {
-    s32 input;
-    struct Task *task;
+    struct Task *task = &gTasks[taskId];
+    s32 input = ListMenu_ProcessInput(task->data[14]);
 
-    task = &gTasks[taskId];
-    task++;task--;
-    input = ListMenu_ProcessInput(task->data[14]);
     switch (input)
     {
-    case -1:
+    case LIST_NOTHING_CHOSEN:
         break;
-    case -2:
-        gSpecialVar_Result = 0x7F;
+    case LIST_CANCEL:
+        gSpecialVar_Result = MULTI_B_PRESSED;
         PlaySE(SE_SELECT);
         Task_DestroyListMenu(taskId);
         break;
@@ -1473,7 +1470,7 @@ static void Task_ListMenuHandleInput(u8 taskId)
         else
         {
             Task_ListMenuRemoveScrollIndicatorArrowPair(taskId);
-            task->func = Task_SuspendListMenu;
+            task->func = Task_ScrollableMultichoice_WaitReturnToList;
             ScriptContext_Enable();
         }
         break;
@@ -1495,7 +1492,7 @@ static void Task_DestroyListMenu(u8 taskId)
     ScriptContext_Enable();
 }
 
-static void Task_SuspendListMenu(u8 taskId)
+static void Task_ScrollableMultichoice_WaitReturnToList(u8 taskId)
 {
     switch (gTasks[taskId].data[6])
     {
@@ -1503,28 +1500,28 @@ static void Task_SuspendListMenu(u8 taskId)
         break;
     case 2:
         gTasks[taskId].data[6] = 1;
-        gTasks[taskId].func = Task_RedrawScrollArrowsAndWaitInput;
+        gTasks[taskId].func = Task_ScrollableMultichoice_ReturnToList;
         break;
     }
 }
 
-void ReturnToListMenu(void)
+void ScrollableMultichoice_TryReturnToList(void)
 {
-    u8 taskId = FindTaskIdByFunc(Task_SuspendListMenu);
-    if (taskId == 0xFF)
+    u8 taskId = FindTaskIdByFunc(Task_ScrollableMultichoice_WaitReturnToList);
+    if (taskId == TASK_NONE)
         ScriptContext_Enable();
     else
         gTasks[taskId].data[6]++;
 }
 
-static void Task_RedrawScrollArrowsAndWaitInput(u8 taskId)
+static void Task_ScrollableMultichoice_ReturnToList(u8 taskId)
 {
     LockPlayerFieldControls();
-    Task_CreateMenuRemoveScrollIndicatorArrowPair(taskId);
-    gTasks[taskId].func = Task_ListMenuHandleInput;
+    ScrollableMultichoice_UpdateScrollArrows(taskId);
+    gTasks[taskId].func = ScrollableMultichoice_ProcessInput;
 }
 
-static void Task_CreateMenuRemoveScrollIndicatorArrowPair(u8 taskId)
+static void ScrollableMultichoice_UpdateScrollArrows(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
     struct ScrollArrowsTemplate template = {
@@ -1558,22 +1555,22 @@ void ForcePlayerToStartSurfing(void)
     SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_SURFING);
 }
 
-static const u16 sStarterSpecies[] = {
+static const u16 sStarterMon[] = {
     SPECIES_BULBASAUR,
     SPECIES_SQUIRTLE,
     SPECIES_CHARMANDER
 };
 
-static u16 GetStarterSpeciesById(u16 idx)
+static u16 GetStarterPokemon(u16 chosenStarterId)
 {
-    if (idx >= NELEMS(sStarterSpecies))
-        idx = 0;
-    return sStarterSpecies[idx];
+    if (chosenStarterId >= NELEMS(sStarterMon))
+        chosenStarterId = 0;
+    return sStarterMon[chosenStarterId];
 }
 
 u16 GetStarterSpecies(void)
 {
-    return GetStarterSpeciesById(VarGet(VAR_STARTER_MON));
+    return GetStarterPokemon(VarGet(VAR_STARTER_MON));
 }
 
 void SetSeenMon(void)
@@ -1856,7 +1853,7 @@ static const u8 sMartMaps[][3] = {
     {MAP(MAP_SIX_ISLAND_MART),      1}
 };
 
-u8 GetMartClerkObjectId(void)
+u8 GetMartEmployeeObjectEventId(void)
 {
     u8 i;
     for (i = 0; i < NELEMS(sMartMaps); i++)
@@ -2411,12 +2408,12 @@ static const u8 sDeoxysStepCaps[] = {
     3
 };
 
-void DoDeoxysTriangleInteraction(void)
+void DoDeoxysRockInteraction(void)
 {
-    CreateTask(Task_DoDeoxysTriangleInteraction, 8);
+    CreateTask(Task_DeoxysRockInteraction, 8);
 }
 
-static void Task_DoDeoxysTriangleInteraction(u8 taskId)
+static void Task_DeoxysRockInteraction(u8 taskId)
 {
     u16 r5;
     u16 r6;
@@ -2503,7 +2500,7 @@ void IncrementBirthIslandRockStepCount(void)
     }
 }
 
-void SetDeoxysTrianglePalette(void)
+void SetDeoxysRockPalette(void)
 {
     u8 num = VarGet(VAR_DEOXYS_INTERACTION_NUM);
     LoadPalette(sDeoxysObjectPals[num], OBJ_PLTT_ID(10), PLTT_SIZEOF(4));
@@ -2587,27 +2584,33 @@ void UpdateLoreleiDollCollection(void)
     }
 }
 
-void LoopWingFlapSound(void)
+#define playCount data[0]
+#define delay     data[1]
+
+void LoopWingFlapSE(void)
 {
     // 8004 = Num flaps
     // 8005 = Frame delay between flaps
-    CreateTask(Task_WingFlapSound, 8);
+    CreateTask(Task_LoopWingFlapSE, 8);
     PlaySE(SE_M_WING_ATTACK);
 }
 
-static void Task_WingFlapSound(u8 taskId)
+static void Task_LoopWingFlapSE(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    data[1]++;
-    if (data[1] == gSpecialVar_0x8005)
+    delay++;
+    if (delay == gSpecialVar_0x8005)
     {
-        data[0]++;
-        data[1] = 0;
+        playCount++;
+        delay = 0;
         PlaySE(SE_M_WING_ATTACK);
     }
-    if (data[0] == gSpecialVar_0x8004 - 1)
+    if (playCount == gSpecialVar_0x8004 - 1)
         DestroyTask(taskId);
 }
+
+#undef playCount
+#undef delay
 
 bool8 InPokemonCenter(void)
 {

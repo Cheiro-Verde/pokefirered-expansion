@@ -7,7 +7,7 @@ EventScript_Questionnaire::
 	call Common_ShowEasyChatScreen
 	lock
 	faceplayer
-	specialvar VAR_0x8008, GetMartClerkObjectId
+	specialvar VAR_0x8008, GetMartEmployeeObjectEventId
 	textcolor NPC_TEXT_COLOR_MALE
 	goto_if_eq VAR_0x8004, 0, EventScript_EnableMysteryGift
 	goto_if_eq VAR_RESULT, 0, EventScript_DeclineQuestionnaire

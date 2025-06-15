@@ -241,17 +241,6 @@ static const u8 sWhiteOutMoneyLossMultipliers[] = {
     30
 };
 
-static const u16 sWhiteOutMoneyLossBadgeFlagIDs[] = {
-    FLAG_BADGE01_GET,
-    FLAG_BADGE02_GET,
-    FLAG_BADGE03_GET,
-    FLAG_BADGE04_GET,
-    FLAG_BADGE05_GET,
-    FLAG_BADGE06_GET,
-    FLAG_BADGE07_GET,
-    FLAG_BADGE08_GET
-};
-
 static void DoWhiteOut(void)
 {
     RunScriptImmediately(EventScript_ResetEliteFourEnd);
@@ -284,9 +273,9 @@ static u8 CountBadgesForOverworldWhiteOutLossCalculation(void)
 {
     int i;
     u8 nbadges = 0;
-    for (i = 0; i < NELEMS(sWhiteOutMoneyLossBadgeFlagIDs); i++)
+    for (i = 0; i < NELEMS(gBadgeFlags); i++)
     {
-        if (FlagGet(sWhiteOutMoneyLossBadgeFlagIDs[i]))
+        if (FlagGet(gBadgeFlags[i]))
             nbadges++;
     }
     return nbadges;

@@ -5,7 +5,7 @@ BirthIsland_Exterior_MapScripts::
 	.byte 0
 
 BirthIsland_Exterior_OnReturnToField::
-	special SetDeoxysTrianglePalette
+	special SetDeoxysRockPalette
 	end
 
 BirthIsland_Exterior_OnTransition::
@@ -43,7 +43,7 @@ BirthIsland_Exterior_EventScript_Triangle::
 	faceplayer
 	goto_if_questlog EventScript_ReleaseEnd
 	special QuestLog_CutRecording
-	special DoDeoxysTriangleInteraction
+	special DoDeoxysRockInteraction
 	waitstate
 	switch VAR_RESULT
 	case 0, BirthIsland_Exterior_EventScript_NotSolved1

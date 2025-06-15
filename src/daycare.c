@@ -1505,7 +1505,7 @@ u8 GetDaycareState(void)
     return DAYCARE_NO_MONS;
 }
 
-u8 GetDaycarePokemonCount(void)
+static u8 UNUSED GetDaycarePokemonCount(void)
 {
     u8 ret = CountPokemonInDaycare(&gSaveBlock1Ptr->daycare);
     if (ret)
