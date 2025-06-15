@@ -23,6 +23,7 @@
 #include "field_weather.h"
 #include "event_object_movement.h"
 #include "item.h"
+#include "link.h"
 #include "random.h"
 #include "mail.h"
 #include "help_system.h"
@@ -2695,4 +2696,101 @@ void TrySkyBattle(void)
         }
     }
     gSpecialVar_Result = FALSE;
+}
+
+u8 GetLinkPartnerNames(void)
+{
+    // u8 i;
+    // u8 j = 0;
+    // u8 myLinkPlayerNumber = GetMultiplayerId();
+    u8 nLinkPlayers = GetLinkPlayerCount();
+    // for (i = 0; i < nLinkPlayers; i++)
+    // {
+    //     if (myLinkPlayerNumber != i)
+    //     {
+    //         StringCopy(gTVStringVarPtrs[j], gLinkPlayers[i].name);
+    //         j++;
+    //     }
+    // }
+    return nLinkPlayers;
+}
+
+void SpawnLinkPartnerObjectEvent(void)
+{
+    // u8 j = 0;
+    // s16 x = 0;
+    // s16 y = 0;
+    // u8 movementTypes[] = {
+    //     MOVEMENT_TYPE_FACE_UP,
+    //     MOVEMENT_TYPE_FACE_LEFT,
+    //     MOVEMENT_TYPE_FACE_DOWN,
+    //     MOVEMENT_TYPE_FACE_RIGHT
+    // };
+    // s8 coordOffsets[][2] = {
+    //     { 0,  1},
+    //     { 1,  0},
+    //     { 0, -1},
+    //     {-1,  0}
+    // };
+    // u8 myLinkPlayerNumber;
+    // u8 playerFacingDirection;
+    // u8 linkSpriteId;
+    // u8 i;
+
+    // myLinkPlayerNumber = GetMultiplayerId();
+    // playerFacingDirection = GetPlayerFacingDirection();
+    // switch (playerFacingDirection)
+    // {
+    // case DIR_WEST:
+    //     j = 2;
+    //     x = gSaveBlock1Ptr->pos.x - 1;
+    //     y = gSaveBlock1Ptr->pos.y;
+    //     break;
+    // case DIR_NORTH:
+    //     j = 1;
+    //     x = gSaveBlock1Ptr->pos.x;
+    //     y = gSaveBlock1Ptr->pos.y - 1;
+    //     break;
+    // case DIR_EAST:
+    //     x = gSaveBlock1Ptr->pos.x + 1;
+    //     y = gSaveBlock1Ptr->pos.y;
+    //     break;
+    // case DIR_SOUTH:
+    //     j = 3;
+    //     x = gSaveBlock1Ptr->pos.x;
+    //     y = gSaveBlock1Ptr->pos.y + 1;
+    // }
+    // for (i = 0; i < gSpecialVar_0x8004; i++)
+    // {
+    //     if (myLinkPlayerNumber != i)
+    //     {
+    //         switch ((u8)gLinkPlayers[i].version)
+    //         {
+    //         case VERSION_RUBY:
+    //         case VERSION_SAPPHIRE:
+    //             if (gLinkPlayers[i].gender == 0)
+    //                 linkSpriteId = OBJ_EVENT_GFX_LINK_RS_BRENDAN;
+    //             else
+    //                 linkSpriteId = OBJ_EVENT_GFX_LINK_RS_MAY;
+    //             break;
+    //         case VERSION_EMERALD:
+    //             if (gLinkPlayers[i].gender == 0)
+    //                 linkSpriteId = OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL;
+    //             else
+    //                 linkSpriteId = OBJ_EVENT_GFX_RIVAL_MAY_NORMAL;
+    //             break;
+    //         default:
+    //             if (gLinkPlayers[i].gender == 0)
+    //                 linkSpriteId = OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL;
+    //             else
+    //                 linkSpriteId = OBJ_EVENT_GFX_RIVAL_MAY_NORMAL;
+    //             break;
+    //         }
+    //         SpawnSpecialObjectEventParameterized(linkSpriteId, movementTypes[j], LOCALID_BERRY_BLENDER_PLAYER_END - i, coordOffsets[j][0] + x + MAP_OFFSET, coordOffsets[j][1] + y + MAP_OFFSET, 0);
+    //         LoadLinkPartnerObjectEventSpritePalette(linkSpriteId, LOCALID_BERRY_BLENDER_PLAYER_END - i, i);
+    //         j++;
+    //         if (j == MAX_LINK_PLAYERS)
+    //             j = 0;
+    //     }
+    // }
 }

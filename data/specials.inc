@@ -188,15 +188,15 @@ gSpecials::
 	def_special Script_GetChosenMonOffensiveIVs
 	def_special Script_GetChosenMonDefensiveIVs
 @ firered specific
-	def_special EnterColosseumPlayerSpot
-	def_special EnterTradeSeat
+	def_special ColosseumPlayerSpotTriggered
+	def_special PlayerEnteredTradeSeat
 	def_special StartWiredCableClubTrade
-	def_special CableClub_AskSaveTheGame
-	def_special Script_HasTrainerBeenFought
-	def_special EndTrainerApproach
+	def_special CableClubSaveGame
+	def_special GetTrainerFlag
+	def_special DoTrainerApproach
 	def_special HasLeadMonBeenRenamed
-	def_special TryContestLinkup
-	def_special Field_AskSaveTheGame
+	def_special TryContestGModeLinkup
+	def_special SaveGame
 	def_special ShowEasyChatMessage
 	def_special GetHeracrossSizeRecordInfo
 	def_special CompareHeracrossSize
@@ -330,33 +330,28 @@ gSpecials::
 	def_special EnterSecretBase
 	def_special ClearAndLeaveSecretBase
 	def_special MoveOutOfSecretBase
-@	def_special IsCurSecretBaseOwnedByAnotherPlayer
-@	def_special GetCurSecretBaseRegistrationValidity
-@	def_special ToggleCurSecretBaseRegistry
-@	def_special ShowSecretBaseDecorationMenu
-@	def_special ShowSecretBaseRegistryMenu
-@	def_special PrepSecretBaseBattleFlags
-@	def_special GetSecretBaseOwnerAndState
-@	def_special InitSecretBaseDecorationSprites
-@	def_special SetDecoration
-@	def_special GetObjectEventLocalIdByFlag
-@	def_special GetSecretBaseTypeInFrontOfPlayer
-@	def_special SetSecretBaseOwnerGfxId
-@	def_special PutAwayDecorationIteration
-@	def_special EnterNewlyCreatedSecretBase
-@	def_special SetBattledOwnerFromResult
-@	def_special DoSecretBasePCTurnOffEffect
-@	def_special RecordMixingPlayerSpotTriggered
-@	def_special ValidateMixingGameLanguage
-@	def_special ColosseumPlayerSpotTriggered
-@	def_special PlayerEnteredTradeSeat
-@	def_special Script_StartWiredTrade
-@	def_special CableClubSaveGame
-@	def_special TryBerryBlenderLinkup
-@	def_special GetLinkPartnerNames
-@	def_special SpawnLinkPartnerObjectEvent
-@	def_special GetTrainerFlag
-@	def_special DoTrainerApproach
+	def_special IsCurSecretBaseOwnedByAnotherPlayer
+	def_special GetCurSecretBaseRegistrationValidity
+	def_special ToggleCurSecretBaseRegistry
+	def_special ShowSecretBaseDecorationMenu
+	def_special ShowSecretBaseRegistryMenu
+	def_special PrepSecretBaseBattleFlags
+	def_special GetSecretBaseOwnerAndState
+	def_special InitSecretBaseDecorationSprites
+	def_special SetDecoration
+	def_special GetSecretBaseTypeInFrontOfPlayer
+	def_special SetSecretBaseOwnerGfxId
+	def_special PutAwayDecorationIteration
+	def_special EnterNewlyCreatedSecretBase
+	def_special SetBattledOwnerFromResult
+	def_special DoSecretBasePCTurnOffEffect
+	def_special RecordMixingPlayerSpotTriggered
+	def_special ValidateMixingGameLanguage
+	def_special PlayerEnteredTradeSeat
+	def_special Script_StartWiredTrade
+	def_special TryBerryBlenderLinkup
+	def_special GetLinkPartnerNames
+	def_special SpawnLinkPartnerObjectEvent
 @	def_special TurnOffTVScreen
 @	def_special DoTVShow
 @	def_special DoPokeNews
@@ -388,7 +383,6 @@ gSpecials::
 @	def_special IsContestDebugActive
 @	def_special GiveMonArtistRibbon
 @	def_special TryContestGModeLinkup
-@	def_special SaveGame
 @	def_special ShowEasyChatProfile
 @	def_special Script_GetCurrentMauvilleMan
 @	def_special HasBardSongBeenChanged

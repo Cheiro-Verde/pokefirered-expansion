@@ -526,11 +526,25 @@ void TryRecordMixLinkup(void)
     CreateLinkupTask(2, 4);
 }
 
-void TryContestLinkup(void)
+void TryBerryBlenderLinkup(void)
+{
+    gLinkType = LINKTYPE_BERRY_BLENDER_SETUP;
+    gBattleTypeFlags = 0;
+    CreateLinkupTask(2, 4);
+}
+
+void TryContestGModeLinkup(void)
 {
     gLinkType = LINKTYPE_CONTEST_GMODE;
     gBattleTypeFlags = 0;
     CreateLinkupTask(4, 4);
+}
+
+void TryContestEModeLinkup(void)
+{
+    gLinkType = LINKTYPE_CONTEST_EMODE;
+    gBattleTypeFlags = 0;
+    CreateLinkupTask(2, 4);
 }
 
 u8 CreateTask_ReestablishCableClubLink(void)
@@ -607,9 +621,9 @@ static void Task_ReestablishLinkAwaitConfirmation(u8 taskId)
 }
 
 // Unused
-void CableClub_AskSaveTheGame(void)
+void CableClubSaveGame(void)
 {
-    Field_AskSaveTheGame();
+    SaveGame();
 }
 
 #define tTimer data[1]
@@ -925,7 +939,7 @@ static void Task_StartWirelessTrade(u8 taskId)
     }
 }
 
-void EnterTradeSeat(void)
+void PlayerEnteredTradeSeat(void)
 {
     if (gWirelessCommType)
         CreateTask_EnterCableClubSeat(Task_StartWirelessTrade);
@@ -938,13 +952,20 @@ static void CreateTask_StartWiredTrade(void)
     CreateTask(Task_StartWiredTrade, 80);
 }
 
+// Implemented in Ruby/Sapphire
+void UNUSED Script_StartWiredTrade(void)
+{
+    // CreateTask_StartWiredTrade();
+    // ScriptContext_Stop();
+}
+
 void StartWiredCableClubTrade(void)
 {
     CreateTask_StartWiredTrade();
     ScriptContext_Stop();
 }
 
-void EnterColosseumPlayerSpot(void)
+void ColosseumPlayerSpotTriggered(void)
 {
     gLinkType = LINKTYPE_BATTLE;
     if (gWirelessCommType)
@@ -990,3 +1011,14 @@ void Task_WaitForLinkPlayerConnection(u8 taskId)
 }
 
 #undef tTimer
+
+void ValidateMixingGameLanguage(void)
+{
+    // u32 taskId = FindTaskIdByFunc(Task_ValidateMixingGameLanguage);
+
+    // if (taskId == TASK_NONE)
+    // {
+    //     taskId = CreateTask(Task_ValidateMixingGameLanguage, 80);
+    //     gTasks[taskId].tState = 0;
+    // }
+}

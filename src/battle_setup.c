@@ -929,7 +929,7 @@ u16 GetRivalBattleFlags(void)
     return TRAINER_BATTLE_PARAM.rivalBattleFlags;
 }
 
-u16 Script_HasTrainerBeenFought(void)
+bool8 GetTrainerFlag(void)
 {
     return FlagGet(GetTrainerAFlag());
 }

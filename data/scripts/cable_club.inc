@@ -576,14 +576,14 @@ CableClub_EventScript_ShowBattleRecords::
 BattleColosseum_2P_EventScript_PlayerSpot0::
 	setvar VAR_0x8005, 0
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
 BattleColosseum_2P_EventScript_PlayerSpot1::
 	setvar VAR_0x8005, 1
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
@@ -594,7 +594,7 @@ BattleColosseum_4P_EventScript_PlayerSpot0::
 	goto_if_eq VAR_RESULT, 0, BattleColosseum_4P_EventScript_CancelSpotTrigger
 	setvar VAR_0x8005, 0
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
@@ -605,7 +605,7 @@ BattleColosseum_4P_EventScript_PlayerSpot1::
 	goto_if_eq VAR_RESULT, 0, BattleColosseum_4P_EventScript_CancelSpotTrigger
 	setvar VAR_0x8005, 1
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
@@ -616,7 +616,7 @@ BattleColosseum_4P_EventScript_PlayerSpot2::
 	goto_if_eq VAR_RESULT, 0, BattleColosseum_4P_EventScript_CancelSpotTrigger
 	setvar VAR_0x8005, 2
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
@@ -627,7 +627,7 @@ BattleColosseum_4P_EventScript_PlayerSpot3::
 	goto_if_eq VAR_RESULT, 0, BattleColosseum_4P_EventScript_CancelSpotTrigger
 	setvar VAR_0x8005, 3
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterColosseumPlayerSpot
+	special ColosseumPlayerSpotTriggered
 	waitstate
 	end
 
@@ -637,14 +637,14 @@ BattleColosseum_4P_EventScript_CancelSpotTrigger::
 TradeCenter_EventScript_Chair0::
 	setvar VAR_0x8005, 0
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterTradeSeat
+	special PlayerEnteredTradeSeat
 	waitstate
 	end
 
 TradeCenter_EventScript_Chair1::
 	setvar VAR_0x8005, 1
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterTradeSeat
+	special PlayerEnteredTradeSeat
 	waitstate
 	end
 
@@ -652,7 +652,7 @@ TradeCenter_EventScript_Chair1::
 TradeCenter_EventScript_Chair2::
 	setvar VAR_0x8005, 2
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterTradeSeat
+	special PlayerEnteredTradeSeat
 	waitstate
 	end
 
@@ -660,7 +660,7 @@ TradeCenter_EventScript_Chair2::
 TradeCenter_EventScript_Chair3::
 	setvar VAR_0x8005, 3
 	textcolor NPC_TEXT_COLOR_NEUTRAL
-	special EnterTradeSeat
+	special PlayerEnteredTradeSeat
 	waitstate
 	end
 

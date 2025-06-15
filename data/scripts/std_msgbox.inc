@@ -55,6 +55,6 @@ EventScript_UnusedReturn::
 	return
 
 EventScript_AskSaveGame::
-	special Field_AskSaveTheGame
+	special SaveGame
 	waitstate
 	return

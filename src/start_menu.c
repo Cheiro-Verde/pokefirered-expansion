@@ -98,7 +98,7 @@ static bool8 StartMenuDebugCallback(void);
 static bool8 StartMenuDexNavCallback(void);
 static bool8 StartCB_Save1(void);
 static bool8 StartCB_Save2(void);
-static void StartMenu_PrepareForSave(void);
+static void InitSave(void);
 static u8 RunSaveDialogCB(void);
 static void task50_save_game(u8 taskId);
 static u8 SaveDialogCB_PrintAskSaveText(void);
@@ -718,7 +718,7 @@ static bool8 StartCB_Save1(void)
 {
     BackupHelpContext();
     SetHelpContext(HELPCONTEXT_SAVE);
-    StartMenu_PrepareForSave();
+    InitSave();
     sStartMenuCallback = StartCB_Save2;
     return FALSE;
 }
@@ -751,7 +751,7 @@ static bool8 StartCB_Save2(void)
     return FALSE;
 }
 
-static void StartMenu_PrepareForSave(void)
+static void InitSave(void)
 {
     SaveMapView();
     sSaveDialogCB = SaveDialogCB_PrintAskSaveText;
@@ -766,12 +766,12 @@ static u8 RunSaveDialogCB(void)
     return sSaveDialogCB();
 }
 
-void Field_AskSaveTheGame(void)
+void SaveGame(void)
 {
     sTimeWindowId = WINDOW_NONE;
     BackupHelpContext();
     SetHelpContext(HELPCONTEXT_SAVE);
-    StartMenu_PrepareForSave();
+    InitSave();
     CreateTask(task50_save_game, 80);
 }
 
