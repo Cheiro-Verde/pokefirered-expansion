@@ -10450,10 +10450,20 @@ u32 GetBattleMoveCategory(u32 move)
             return DAMAGE_CATEGORY_STATUS;
     }
 
+
+    if (FlagGet(FLAG_DIVISAO_MODERNA_FISICO_SPECIAL)) 
+        return GetMoveCategory(move);
+    else 
+        return gTypesInfo[GetBattleMoveType(move)].damageCategory;
+
+/*
     if (B_PHYSICAL_SPECIAL_SPLIT <= GEN_4)
         return gTypesInfo[GetBattleMoveType(move)].damageCategory;
 
     return GetMoveCategory(move);
+*/
+
+
 }
 
 void SetDynamicMoveCategory(u32 battlerAtk, u32 battlerDef, u32 move)
